@@ -30,6 +30,7 @@ import org.springframework.samples.petclinic.model.BaseEntity;
  * @author Sam Brannen
  * @author Michael Isvy
  */
+
 public interface VisitRepository extends Repository<Visit, Integer> {
 
     /**
@@ -38,8 +39,10 @@ public interface VisitRepository extends Repository<Visit, Integer> {
      * @param visit the <code>Visit</code> to save
      * @see BaseEntity#isNew
      */
+
     void save(Visit visit) throws DataAccessException;
 
     List<Visit> findByPetId(Integer petId);
+
 
 }

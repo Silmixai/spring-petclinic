@@ -21,17 +21,14 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlElement;
 
 import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
 import org.springframework.samples.petclinic.model.Person;
+import org.springframework.samples.petclinic.owner.Pet;
+import org.springframework.samples.petclinic.visit.Visit;
 
 /**
  * Simple JavaBean domain object representing a veterinarian.
@@ -67,6 +64,18 @@ public class Vet extends Person {
                 new MutableSortDefinition("name", true, true));
         return Collections.unmodifiableList(sortedSpecs);
     }
+
+    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "vet")
+    private Set<Visit> visits;
+
+    public Set<Visit> getVisits() {
+        return visits;
+    }
+
+    public void setVisits(Set<Visit> visits) {
+        this.visits = visits;
+    }
+
 
     public int getNrOfSpecialties() {
         return getSpecialtiesInternal().size();
